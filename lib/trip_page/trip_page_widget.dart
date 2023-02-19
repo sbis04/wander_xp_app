@@ -315,6 +315,74 @@ class _TripPageWidgetState extends State<TripPageWidget> {
                                     ),
                           ),
                         ),
+                        if (FFAppState().hotelConfirmationCode != null &&
+                            FFAppState().hotelConfirmationCode != '')
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Confirmation Code',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 12,
+                                        letterSpacing: 1,
+                                      ),
+                                ),
+                                Text(
+                                  FFAppState().hotelConfirmationCode,
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        if (FFAppState().hotelPhone != null &&
+                            FFAppState().hotelPhone != '')
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Hotel Phone',
+                                  textAlign: TextAlign.start,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        fontSize: 12,
+                                        letterSpacing: 1,
+                                      ),
+                                ),
+                                Text(
+                                  FFAppState().hotelPhone,
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
                         Divider(
                           thickness: 2,
                           color:
@@ -385,74 +453,6 @@ class _TripPageWidgetState extends State<TripPageWidget> {
                             },
                           ),
                         ),
-                        if (FFAppState().hotelConfirmationCode != null &&
-                            FFAppState().hotelConfirmationCode != '')
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Confirmation Code',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 12,
-                                        letterSpacing: 1,
-                                      ),
-                                ),
-                                Text(
-                                  FFAppState().hotelConfirmationCode,
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        if (FFAppState().hotelPhone != null &&
-                            FFAppState().hotelPhone != '')
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Hotel Phone',
-                                  textAlign: TextAlign.start,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyText1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                        fontSize: 12,
-                                        letterSpacing: 1,
-                                      ),
-                                ),
-                                Text(
-                                  FFAppState().hotelPhone,
-                                  style: FlutterFlowTheme.of(context)
-                                      .subtitle1
-                                      .override(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                           child: FFButtonWidget(

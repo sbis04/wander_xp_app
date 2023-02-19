@@ -1,5 +1,4 @@
 import '../backend/api_requests/api_calls.dart';
-import '../flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -14,9 +13,7 @@ class PlacesToVisitPageModel extends FlutterFlowModel {
 
   final formKey = GlobalKey<FormState>();
   // State field(s) for TextField widget.
-  final textFieldKey1 = GlobalKey();
   TextEditingController? textController1;
-  String? textFieldSelectedOption1;
   String? Function(BuildContext, String?)? textController1Validator;
   // State field(s) for TextField widget.
   TextEditingController? textController2;
@@ -29,6 +26,7 @@ class PlacesToVisitPageModel extends FlutterFlowModel {
   void initState(BuildContext context) {}
 
   void dispose() {
+    textController1?.dispose();
     textController2?.dispose();
   }
 

@@ -51,7 +51,7 @@ class _CreateTripPageWidgetState extends State<CreateTripPageWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
         iconTheme:
             IconThemeData(color: FlutterFlowTheme.of(context).primaryText),
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         title: Text(
           'Create Trip',
           style: FlutterFlowTheme.of(context).bodyText1.override(

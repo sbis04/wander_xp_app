@@ -1,13 +1,17 @@
 import '../backend/api_requests/api_calls.dart';
 import '../components/empty_container_widget.dart';
+import '../components/places_list_placeholder_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_google_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'discover_page_model.dart';
@@ -341,20 +345,22 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16, 24, 0, 0),
-                                  child: Text(
-                                    'Upcoming Trips',
-                                    style: FlutterFlowTheme.of(context)
-                                        .title1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                if (!functions.isTripsEmpty(
+                                    upcomingTripsGetTripsResponse.jsonBody))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16, 24, 0, 0),
+                                    child: Text(
+                                      'Upcoming Trips',
+                                      style: FlutterFlowTheme.of(context)
+                                          .title1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            fontSize: 32,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
-                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16, 10, 16, 16),
@@ -404,162 +410,255 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                 }
                                                 final containerGetPlaceResponse =
                                                     snapshot.data!;
-                                                return ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(10),
-                                                  child: Container(
-                                                    width: double.infinity,
-                                                    height: 200,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10),
-                                                    ),
-                                                    child: Stack(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              0, 1),
-                                                      children: [
-                                                        Image.network(
+                                                return InkWell(
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'TripViewPage',
+                                                      queryParams: {
+                                                        'placeCity':
+                                                            serializeParam(
+                                                          LinodeServerGroup
+                                                              .getPlaceCall
+                                                              .city(
+                                                                containerGetPlaceResponse
+                                                                    .jsonBody,
+                                                              )
+                                                              .toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'placeCountry':
+                                                            serializeParam(
+                                                          LinodeServerGroup
+                                                              .getPlaceCall
+                                                              .country(
+                                                                containerGetPlaceResponse
+                                                                    .jsonBody,
+                                                              )
+                                                              .toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'imagePath':
+                                                            serializeParam(
                                                           LinodeServerGroup
                                                               .getPlaceCall
                                                               .imagePath(
                                                             containerGetPlaceResponse
                                                                 .jsonBody,
                                                           ),
-                                                          width:
-                                                              double.infinity,
-                                                          height: 200,
-                                                          fit: BoxFit.cover,
+                                                          ParamType.String,
                                                         ),
-                                                        Container(
-                                                          width:
-                                                              double.infinity,
-                                                          height: 100,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            gradient:
-                                                                LinearGradient(
-                                                              colors: [
-                                                                Color(
-                                                                    0x00EFEFEF),
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText
-                                                              ],
-                                                              stops: [0, 0.8],
-                                                              begin:
-                                                                  AlignmentDirectional(
-                                                                      0, -1),
-                                                              end:
-                                                                  AlignmentDirectional(
-                                                                      0, 1),
+                                                        'tripStart':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.start_date''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'tripEnd':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.end_date''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'flightNumberArrival':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.flight_number_arrival''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'flightNumberDeparture':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.flight_number_departure''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'hotelName':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.hotel_name''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'hotelAddress':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.hotel_address''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                    child: Container(
+                                                      width: double.infinity,
+                                                      height: 200,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Stack(
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                0, 1),
+                                                        children: [
+                                                          Hero(
+                                                            tag: LinodeServerGroup
+                                                                .getPlaceCall
+                                                                .imagePath(
+                                                              containerGetPlaceResponse
+                                                                  .jsonBody,
+                                                            ),
+                                                            transitionOnUserGestures:
+                                                                true,
+                                                            child:
+                                                                Image.network(
+                                                              LinodeServerGroup
+                                                                  .getPlaceCall
+                                                                  .imagePath(
+                                                                containerGetPlaceResponse
+                                                                    .jsonBody,
+                                                              ),
+                                                              width: double
+                                                                  .infinity,
+                                                              height: 200,
+                                                              fit: BoxFit.cover,
                                                             ),
                                                           ),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        16,
-                                                                        0,
-                                                                        16,
-                                                                        10),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Text(
-                                                                  LinodeServerGroup
-                                                                      .getPlaceCall
-                                                                      .city(
-                                                                        containerGetPlaceResponse
-                                                                            .jsonBody,
-                                                                      )
-                                                                      .toString(),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .start,
-                                                                  style: FlutterFlowTheme.of(
+                                                          Container(
+                                                            width:
+                                                                double.infinity,
+                                                            height: 100,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              gradient:
+                                                                  LinearGradient(
+                                                                colors: [
+                                                                  Color(
+                                                                      0x00EFEFEF),
+                                                                  FlutterFlowTheme.of(
                                                                           context)
-                                                                      .bodyText1
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Poppins',
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBtnText,
-                                                                        fontSize:
-                                                                            24,
-                                                                        letterSpacing:
-                                                                            1,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
+                                                                      .primaryText
+                                                                ],
+                                                                stops: [0, 0.8],
+                                                                begin:
+                                                                    AlignmentDirectional(
+                                                                        0, -1),
+                                                                end:
+                                                                    AlignmentDirectional(
+                                                                        0, 1),
+                                                              ),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          16,
+                                                                          0,
+                                                                          16,
+                                                                          10),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .min,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .end,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    LinodeServerGroup
+                                                                        .getPlaceCall
+                                                                        .city(
+                                                                          containerGetPlaceResponse
+                                                                              .jsonBody,
+                                                                        )
+                                                                        .toString(),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText1
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Poppins',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBtnText,
+                                                                          fontSize:
+                                                                              24,
+                                                                          letterSpacing:
+                                                                              1,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .location_on_outlined,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          size:
+                                                                              16,
+                                                                        ),
                                                                       ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional
-                                                                          .fromSTEB(
-                                                                              0,
-                                                                              0,
-                                                                              5,
-                                                                              0),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .location_on_outlined,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryBackground,
-                                                                        size:
-                                                                            16,
+                                                                      Text(
+                                                                        LinodeServerGroup
+                                                                            .getPlaceCall
+                                                                            .country(
+                                                                              containerGetPlaceResponse.jsonBody,
+                                                                            )
+                                                                            .toString(),
+                                                                        textAlign:
+                                                                            TextAlign.start,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyText1
+                                                                            .override(
+                                                                              fontFamily: 'Poppins',
+                                                                              color: FlutterFlowTheme.of(context).primaryBtnText,
+                                                                              fontSize: 14,
+                                                                              letterSpacing: 1,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
                                                                       ),
-                                                                    ),
-                                                                    Text(
-                                                                      LinodeServerGroup
-                                                                          .getPlaceCall
-                                                                          .country(
-                                                                            containerGetPlaceResponse.jsonBody,
-                                                                          )
-                                                                          .toString(),
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyText1
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Poppins',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryBtnText,
-                                                                            fontSize:
-                                                                                14,
-                                                                            letterSpacing:
-                                                                                1,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
+                                                                    ],
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 );
@@ -610,173 +709,216 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                             child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(16, 0, 16, 0),
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                primary: false,
-                                scrollDirection: Axis.horizontal,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 16, 0),
-                                    child: Material(
-                                      color: Colors.transparent,
-                                      elevation: 0,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Container(
-                                          width: 180,
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: Stack(
-                                            alignment:
-                                                AlignmentDirectional(0, 1),
-                                            children: [
-                                              Image.network(
-                                                'https://picsum.photos/seed/399/600',
-                                                width: 180,
-                                                height: 400,
-                                                fit: BoxFit.cover,
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: LinodeServerGroup.getPlacesCall.call(),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: PlacesListPlaceholderWidget(),
+                                    );
+                                  }
+                                  final listViewGetPlacesResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final places =
+                                          LinodeServerGroup.getPlacesCall
+                                                  .placesList(
+                                                    listViewGetPlacesResponse
+                                                        .jsonBody,
+                                                  )
+                                                  ?.toList() ??
+                                              [];
+                                      return ListView.builder(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: places.length,
+                                        itemBuilder: (context, placesIndex) {
+                                          final placesItem =
+                                              places[placesIndex];
+                                          return Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 16, 0),
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              elevation: 0,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
                                               ),
-                                              Container(
-                                                width: double.infinity,
-                                                height: 150,
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0x00EFEFEF),
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primaryText
-                                                    ],
-                                                    stops: [0, 0.8],
-                                                    begin: AlignmentDirectional(
-                                                        0, -1),
-                                                    end: AlignmentDirectional(
-                                                        0, 1),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Container(
+                                                  width: 180,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
                                                   ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(16, 0, 16, 10),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        'Oslo',
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                                  fontSize: 24,
-                                                                  letterSpacing:
-                                                                      1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      FFAppState().placeName =
+                                                          getJsonField(
+                                                        placesItem,
+                                                        r'''$.city''',
+                                                      ).toString();
+
+                                                      context.pushNamed(
+                                                          'CreateTripPage');
+                                                    },
+                                                    child: Stack(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0, 1),
+                                                      children: [
+                                                        CachedNetworkImage(
+                                                          imageUrl:
+                                                              getJsonField(
+                                                            placesItem,
+                                                            r'''$.image_path''',
+                                                          ),
+                                                          width: 180,
+                                                          height: 400,
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height: 150,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            gradient:
+                                                                LinearGradient(
+                                                              colors: [
+                                                                Color(
+                                                                    0x00EFEFEF),
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryText
+                                                              ],
+                                                              stops: [0, 0.8],
+                                                              begin:
+                                                                  AlignmentDirectional(
+                                                                      0, -1),
+                                                              end:
+                                                                  AlignmentDirectional(
+                                                                      0, 1),
+                                                            ),
+                                                          ),
+                                                          child: Padding(
                                                             padding:
                                                                 EdgeInsetsDirectional
                                                                     .fromSTEB(
+                                                                        16,
                                                                         0,
-                                                                        0,
-                                                                        5,
-                                                                        0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .location_on_outlined,
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primaryBackground,
-                                                              size: 16,
+                                                                        16,
+                                                                        10),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  getJsonField(
+                                                                    placesItem,
+                                                                    r'''$.city''',
+                                                                  ).toString(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .start,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Poppins',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBtnText,
+                                                                        fontSize:
+                                                                            24,
+                                                                        letterSpacing:
+                                                                            1,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional
+                                                                          .fromSTEB(
+                                                                              0,
+                                                                              0,
+                                                                              5,
+                                                                              0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .location_on_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryBackground,
+                                                                        size:
+                                                                            16,
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        placesItem,
+                                                                        r'''$.country''',
+                                                                      ).toString(),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyText1
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Poppins',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBtnText,
+                                                                            fontSize:
+                                                                                14,
+                                                                            letterSpacing:
+                                                                                1,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
                                                             ),
                                                           ),
-                                                          Text(
-                                                            'Norway',
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Poppins',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryBtnText,
-                                                                  fontSize: 14,
-                                                                  letterSpacing:
-                                                                      1,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/399/600',
-                                        width: 180,
-                                        height: 400,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 16, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/399/600',
-                                        width: 180,
-                                        height: 400,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ),
@@ -809,23 +951,250 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                             verticalDirection: VerticalDirection.down,
                             clipBehavior: Clip.none,
                             children: [
-                              Container(
-                                decoration: BoxDecoration(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Image.network(
-                                      'https://picsum.photos/seed/323/600',
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    Text(
-                                      'Hello World',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1,
-                                    ),
-                                  ],
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.mountain,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Mountaneering',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.swimmer,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Swimming',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 28),
+                                        child: Icon(
+                                          Icons.directions_boat_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Sail Boat',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.biking,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Biking',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.parachuteBox,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Paragliding',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  FFAppState().placeName = '';
+
+                                  context.pushNamed('CreateTripPage');
+                                },
+                                child: Container(
+                                  width: 110,
+                                  height: 110,
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 16),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.skiing,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Skiing',
+                                        maxLines: 1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

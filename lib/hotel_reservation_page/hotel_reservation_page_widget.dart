@@ -489,7 +489,7 @@ class _HotelReservationPageWidgetState
                                 SnackBar(
                                   content: Text(
                                     LinodeServerGroup.storeFileCall
-                                        .status(
+                                        .message(
                                           (_model.storeFileResponse?.jsonBody ??
                                               ''),
                                         )
@@ -513,7 +513,7 @@ class _HotelReservationPageWidgetState
                                 SnackBar(
                                   content: Text(
                                     LinodeServerGroup.storeFileCall
-                                        .status(
+                                        .message(
                                           (_model.storeFileResponse?.jsonBody ??
                                               ''),
                                         )
@@ -590,11 +590,11 @@ class _HotelReservationPageWidgetState
                                   FFAppState().hotelName =
                                       _model.textController1.text;
                                   FFAppState().hotelAddress =
-                                      FFAppState().hotelAddress;
+                                      _model.textController2.text;
                                   FFAppState().hotelConfirmationCode =
                                       _model.textController3.text;
                                   FFAppState().hotelPhone =
-                                      FFAppState().hotelPhone;
+                                      _model.textController4.text;
                                 });
 
                                 context.pushNamed('PlacesToVisitPage');

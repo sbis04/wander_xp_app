@@ -70,25 +70,30 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
-                    child: Container(
-                      width: 90,
-                      height: 90,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: CachedNetworkImage(
-                        imageUrl: 'https://picsum.photos/seed/945/600',
-                        fit: BoxFit.fitWidth,
+                Material(
+                  color: Colors.transparent,
+                  elevation: 2,
+                  shape: const CircleBorder(),
+                  child: Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryText,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(2, 2, 2, 2),
+                      child: Container(
+                        width: 90,
+                        height: 90,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: CachedNetworkImage(
+                          imageUrl: 'https://picsum.photos/seed/945/600',
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
                   ),
@@ -118,7 +123,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
                           ),
-                      elevation: 0,
+                      elevation: 4,
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).primaryText,
                         width: 1.5,

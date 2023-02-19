@@ -4,6 +4,7 @@ export 'home_page/home_page_widget.dart' show HomePageWidget;
 export 'login_page/login_page_widget.dart' show LoginPageWidget;
 export 'sign_up_page/sign_up_page_widget.dart' show SignUpPageWidget;
 export 'discover_page/discover_page_widget.dart' show DiscoverPageWidget;
+export 'trip_view_page/trip_view_page_widget.dart' show TripViewPageWidget;
 export 'create_trip_page/create_trip_page_widget.dart'
     show CreateTripPageWidget;
 export 'flight_info_page/flight_info_page_widget.dart'

@@ -9,9 +9,10 @@ import 'lat_lng.dart';
 import 'place.dart';
 
 bool isTripsEmpty(dynamic trips) {
-  if (trips != null && trips.isNotEmpty) {
-    return false;
+  final List<dynamic>? retrievedTrips = trips['trips'];
+  if (retrievedTrips == null) {
+    return true;
   }
 
-  return true;
+  return false;
 }

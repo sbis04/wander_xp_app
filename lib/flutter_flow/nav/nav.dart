@@ -82,6 +82,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => DiscoverPageWidget(),
             ),
             FFRoute(
+              name: 'TripViewPage',
+              path: 'tripViewPage',
+              builder: (context, params) => TripViewPageWidget(
+                placeCity: params.getParam('placeCity', ParamType.String),
+                placeCountry: params.getParam('placeCountry', ParamType.String),
+                imagePath: params.getParam('imagePath', ParamType.String),
+                tripStart: params.getParam('tripStart', ParamType.String),
+                tripEnd: params.getParam('tripEnd', ParamType.String),
+                flightNumberArrival:
+                    params.getParam('flightNumberArrival', ParamType.String),
+                flightNumberDeparture:
+                    params.getParam('flightNumberDeparture', ParamType.String),
+                hotelName: params.getParam('hotelName', ParamType.String),
+                hotelAddress: params.getParam('hotelAddress', ParamType.String),
+              ),
+            ),
+            FFRoute(
               name: 'CreateTripPage',
               path: 'createTripPage',
               builder: (context, params) => CreateTripPageWidget(),

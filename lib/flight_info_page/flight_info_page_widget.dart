@@ -1,3 +1,4 @@
+import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -325,6 +326,63 @@ class _FlightInfoPageWidgetState extends State<FlightInfoPageWidget> {
                                 return;
                               }
                             }
+
+                            _model.storeFileResponse =
+                                await LinodeServerGroup.storeFileCall.call(
+                              file: _model.uploadedLocalFile,
+                              fileName: 'flight_booking_doc',
+                            );
+                            if ((_model.storeFileResponse?.succeeded ?? true)) {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    LinodeServerGroup.storeFileCall
+                                        .message(
+                                          (_model.storeFileResponse?.jsonBody ??
+                                              ''),
+                                        )
+                                        .toString(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                  ),
+                                  duration: Duration(milliseconds: 2000),
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                ),
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context).clearSnackBars();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    LinodeServerGroup.storeFileCall
+                                        .message(
+                                          (_model.storeFileResponse?.jsonBody ??
+                                              ''),
+                                        )
+                                        .toString(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                        ),
+                                  ),
+                                  duration: Duration(milliseconds: 2000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              );
+                            }
+
+                            setState(() {});
                           },
                           child: Container(
                             width: double.infinity,

@@ -1,5 +1,4 @@
 import '../backend/api_requests/api_calls.dart';
-import '../flutter_flow/flutter_flow_autocomplete_options_list.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -92,77 +91,27 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
-                        child: Autocomplete<String>(
-                          initialValue: TextEditingValue(),
-                          optionsBuilder: (textEditingValue) {
-                            if (textEditingValue.text == '') {
-                              return const Iterable<String>.empty();
-                            }
-                            return [
-                              'Mumbai, India',
-                              'Dubai, United Arab Emirates',
-                              'London, United Kingdom'
-                            ].where((option) {
-                              final lowercaseOption = option.toLowerCase();
-                              return lowercaseOption.contains(
-                                  textEditingValue.text.toLowerCase());
-                            });
-                          },
-                          optionsViewBuilder: (context, onSelected, options) {
-                            return AutocompleteOptionsList(
-                              textFieldKey: _model.textFieldKey1,
-                              textController: _model.textController1!,
-                              options: options.toList(),
-                              onSelected: onSelected,
-                              textStyle: FlutterFlowTheme.of(context).bodyText1,
-                              textHighlightStyle: TextStyle(),
-                              elevation: 4,
-                              optionBackgroundColor:
-                                  FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                              optionHighlightColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              maxHeight: 200,
-                            );
-                          },
-                          onSelected: (String selection) {
-                            setState(() =>
-                                _model.textFieldSelectedOption1 = selection);
-                            FocusScope.of(context).unfocus();
-                          },
-                          fieldViewBuilder: (
-                            context,
-                            textEditingController,
-                            focusNode,
-                            onEditingComplete,
-                          ) {
-                            _model.textController1 = textEditingController;
-                            return TextFormField(
-                              key: _model.textFieldKey1,
-                              controller: textEditingController,
-                              focusNode: focusNode,
-                              onEditingComplete: onEditingComplete,
-                              onChanged: (_) => EasyDebounce.debounce(
-                                '_model.textController1',
-                                Duration(milliseconds: 100),
-                                () => setState(() {}),
-                              ),
-                              textCapitalization: TextCapitalization.words,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Place',
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
+                        child: TextFormField(
+                          controller: _model.textController1,
+                          onChanged: (_) => EasyDebounce.debounce(
+                            '_model.textController1',
+                            Duration(milliseconds: 100),
+                            () => setState(() {}),
+                          ),
+                          textCapitalization: TextCapitalization.words,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Place',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
                                       fontSize: 16,
                                       letterSpacing: 1,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                hintText: 'Enter the place\'s name',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .bodyText1
-                                    .override(
+                            hintText: 'Enter the place\'s name',
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Poppins',
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryText,
@@ -170,60 +119,54 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
                                       letterSpacing: 1,
                                       fontWeight: FontWeight.w500,
                                     ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF0000),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF0000),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                prefixIcon: Icon(
-                                  Icons.place_outlined,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  size: 24,
-                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 2,
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyText1
-                                  .override(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFFFF0000),
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            prefixIcon: Icon(
+                              Icons.place_outlined,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                              size: 24,
+                            ),
+                          ),
+                          style:
+                              FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Poppins',
                                     fontSize: 16,
                                     letterSpacing: 1,
                                     fontWeight: FontWeight.w500,
                                   ),
-                              keyboardType: TextInputType.name,
-                              validator: _model.textController1Validator
-                                  .asValidator(context),
-                            );
-                          },
+                          keyboardType: TextInputType.name,
+                          validator: _model.textController1Validator
+                              .asValidator(context),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 16),
                         child: TextFormField(
                           controller: _model.textController2,
                           onChanged: (_) => EasyDebounce.debounce(
@@ -294,6 +237,44 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
                               .asValidator(context),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () {
+                                print('Button pressed ...');
+                              },
+                              text: 'Add Place',
+                              options: FFButtonOptions(
+                                width: 140,
+                                height: 45,
+                                color: FlutterFlowTheme.of(context)
+                                    .primaryBackground,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                elevation: 0,
+                                borderSide: BorderSide(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              showLoadingIndicator: false,
+                            ),
+                          ],
+                        ),
+                      ),
                       FFButtonWidget(
                         onPressed: _model.textController1.text == null ||
                                 _model.textController1.text == ''
@@ -304,7 +285,7 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
                                   return;
                                 }
                                 FFAppState().addToPlacesToVisit(
-                                    _model.textFieldSelectedOption1!);
+                                    _model.textController1.text);
                                 FFAppState().addToPlacesToVisitNotes(
                                     _model.textController2.text);
                                 _model.tripResponse =
@@ -323,7 +304,7 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
                                   hotelAddress: FFAppState().hotelAddress,
                                   hotelPhone: FFAppState().hotelPhone,
                                   placesToVisitName:
-                                      _model.textFieldSelectedOption1,
+                                      _model.textController1.text,
                                   placesToVisitNote:
                                       _model.textController2.text,
                                 );
