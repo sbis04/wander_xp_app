@@ -64,6 +64,8 @@ class _SplashScreenWidgetState extends State<SplashScreenWidget> {
         }
       }
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

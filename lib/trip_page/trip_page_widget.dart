@@ -25,6 +25,8 @@ class _TripPageWidgetState extends State<TripPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TripPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

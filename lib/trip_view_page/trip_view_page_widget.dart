@@ -49,6 +49,8 @@ class _TripViewPageWidgetState extends State<TripViewPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TripViewPageModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

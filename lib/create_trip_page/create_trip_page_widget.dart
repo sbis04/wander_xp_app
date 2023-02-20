@@ -30,6 +30,7 @@ class _CreateTripPageWidgetState extends State<CreateTripPageWidget> {
 
     _model.textController ??=
         TextEditingController(text: FFAppState().placeName);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -31,6 +31,7 @@ class _PlacesToVisitPageWidgetState extends State<PlacesToVisitPageWidget> {
 
     _model.textController1 ??= TextEditingController();
     _model.textController2 ??= TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
