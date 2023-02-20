@@ -29,6 +29,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
         TextEditingController(text: FFAppState().userName);
     _model.textController2 ??=
         TextEditingController(text: FFAppState().userEmail);
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

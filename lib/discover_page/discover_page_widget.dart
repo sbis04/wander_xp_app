@@ -112,6 +112,8 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

@@ -47,6 +47,8 @@ class _PlacePlaceholderWidgetState extends State<PlacePlaceholderWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => PlacePlaceholderModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override

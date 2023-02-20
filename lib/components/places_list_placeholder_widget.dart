@@ -29,6 +29,8 @@ class _PlacesListPlaceholderWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => PlacesListPlaceholderModel());
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
