@@ -1,12 +1,4 @@
-# WanderXP
-
-**WanderXP** helps you to keep your travel requirements organized including flight and hotel details, and the notable places that you don't want to miss visiting.
-
-> Try out the app (Android): https://appdistribution.firebase.dev/i/a0b42613bd16e37e
-> 
-> Try out the app (Web): https://wanderxp.flutterflow.app
-
-## License
+MIT License
 
 Copyright (c) 2023 Souvik Biswas
 
@@ -27,5 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
