@@ -1,4 +1,3 @@
-import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -38,9 +37,6 @@ class FlightInfoPageModel extends FlutterFlowModel {
   bool isMediaUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
-
-  // Stores action output result for [Backend Call - API (Store File)] action in StartDateContainer widget.
-  ApiCallResponse? storeFileResponse;
 
   /// Initialization and disposal methods.
 
