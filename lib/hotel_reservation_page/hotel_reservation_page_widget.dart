@@ -481,7 +481,6 @@ class _HotelReservationPageWidgetState
                             _model.storeFileResponse =
                                 await LinodeServerGroup.storeFileCall.call(
                               file: _model.uploadedLocalFile,
-                              fileName: 'hotel_booking_doc',
                             );
                             if ((_model.storeFileResponse?.succeeded ?? true)) {
                               ScaffoldMessenger.of(context).clearSnackBars();

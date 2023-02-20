@@ -313,7 +313,6 @@ class GetTripCall {
 class StoreFileCall {
   Future<ApiCallResponse> call({
     FFUploadedFile? file,
-    String? fileName = 'booking_doc',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'Store File',
@@ -324,7 +323,6 @@ class StoreFileCall {
       },
       params: {
         'file': file,
-        'file_name': fileName,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,

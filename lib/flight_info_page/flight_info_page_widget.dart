@@ -330,7 +330,6 @@ class _FlightInfoPageWidgetState extends State<FlightInfoPageWidget> {
                             _model.storeFileResponse =
                                 await LinodeServerGroup.storeFileCall.call(
                               file: _model.uploadedLocalFile,
-                              fileName: 'flight_booking_doc',
                             );
                             if ((_model.storeFileResponse?.succeeded ?? true)) {
                               ScaffoldMessenger.of(context).clearSnackBars();
