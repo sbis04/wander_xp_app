@@ -23,6 +23,7 @@ class LinodeServerGroup {
   static StoreFileCall storeFileCall = StoreFileCall();
   static GetPlacesCall getPlacesCall = GetPlacesCall();
   static GetPlaceCall getPlaceCall = GetPlaceCall();
+  static GetPlacesToVisitCall getPlacesToVisitCall = GetPlacesToVisitCall();
 }
 
 class CreateUserAccountCall {
@@ -433,6 +434,60 @@ class GetPlaceCall {
   dynamic imagePath(dynamic response) => getJsonField(
         response,
         r'''$.place.image_path''',
+      );
+}
+
+class GetPlacesToVisitCall {
+  Future<ApiCallResponse> call({
+    String? tripId = '',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Places to Visit',
+      apiUrl: '${LinodeServerGroup.baseUrl}/places_to_visit/${tripId}',
+      callType: ApiCallType.GET,
+      headers: {
+        ...LinodeServerGroup.headers,
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic placesToVisitList(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit''',
+        true,
+      );
+  dynamic message(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit[:].name''',
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit[:].id''',
+      );
+  dynamic note(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit[:].note''',
+      );
+  dynamic tripId(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit[:].trip_id''',
+      );
+  dynamic uid(dynamic response) => getJsonField(
+        response,
+        r'''$.places_to_visit[:].uid''',
+      );
+  dynamic status(dynamic response) => getJsonField(
+        response,
+        r'''$.status''',
       );
 }
 

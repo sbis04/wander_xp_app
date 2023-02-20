@@ -96,6 +96,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     params.getParam('flightNumberDeparture', ParamType.String),
                 hotelName: params.getParam('hotelName', ParamType.String),
                 hotelAddress: params.getParam('hotelAddress', ParamType.String),
+                tripId: params.getParam('tripId', ParamType.String),
               ),
             ),
             FFRoute(

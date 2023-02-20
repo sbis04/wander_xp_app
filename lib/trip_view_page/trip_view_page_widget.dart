@@ -1,3 +1,4 @@
+import '../backend/api_requests/api_calls.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -21,6 +22,7 @@ class TripViewPageWidget extends StatefulWidget {
     this.flightNumberDeparture,
     this.hotelName,
     this.hotelAddress,
+    this.tripId,
   }) : super(key: key);
 
   final String? placeCity;
@@ -32,6 +34,7 @@ class TripViewPageWidget extends StatefulWidget {
   final String? flightNumberDeparture;
   final String? hotelName;
   final String? hotelAddress;
+  final String? tripId;
 
   @override
   _TripViewPageWidgetState createState() => _TripViewPageWidgetState();
@@ -471,50 +474,85 @@ class _TripViewPageWidgetState extends State<TripViewPageWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
-                      child: Builder(
-                        builder: (context) {
-                          final placesToVisitList =
-                              FFAppState().placesToVisit.toList();
-                          return ListView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemCount: placesToVisitList.length,
-                            itemBuilder: (context, placesToVisitListIndex) {
-                              final placesToVisitListItem =
-                                  placesToVisitList[placesToVisitListIndex];
-                              return Column(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    placesToVisitListItem,
-                                    style: FlutterFlowTheme.of(context)
-                                        .subtitle1
-                                        .override(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: LinodeServerGroup.getPlacesToVisitCall.call(
+                          tripId: widget.tripId,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                ),
+                              ),
+                            );
+                          }
+                          final listViewGetPlacesToVisitResponse =
+                              snapshot.data!;
+                          return Builder(
+                            builder: (context) {
+                              final placesToVisitList =
+                                  LinodeServerGroup.getPlacesToVisitCall
+                                          .placesToVisitList(
+                                            listViewGetPlacesToVisitResponse
+                                                .jsonBody,
+                                          )
+                                          ?.toList() ??
+                                      [];
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: placesToVisitList.length,
+                                itemBuilder: (context, placesToVisitListIndex) {
+                                  final placesToVisitListItem =
+                                      placesToVisitList[placesToVisitListIndex];
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        getJsonField(
+                                          placesToVisitListItem,
+                                          r'''$.name''',
+                                        ).toString(),
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 12),
+                                        child: Text(
+                                          getJsonField(
+                                            placesToVisitListItem,
+                                            r'''$.note''',
+                                          ).toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                         ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 12),
-                                    child: Text(
-                                      FFAppState().placesToVisitNotes[
-                                          placesToVisitListIndex],
-                                      style: FlutterFlowTheme.of(context)
-                                          .subtitle1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryText,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal,
-                                          ),
-                                    ),
-                                  ),
-                                ],
+                                      ),
+                                    ],
+                                  );
+                                },
                               );
                             },
                           );

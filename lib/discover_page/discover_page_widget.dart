@@ -495,6 +495,14 @@ class _DiscoverPageWidgetState extends State<DiscoverPageWidget>
                                                           ).toString(),
                                                           ParamType.String,
                                                         ),
+                                                        'tripId':
+                                                            serializeParam(
+                                                          getJsonField(
+                                                            tripsItem,
+                                                            r'''$.id''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
                                                       }.withoutNulls,
                                                     );
                                                   },
